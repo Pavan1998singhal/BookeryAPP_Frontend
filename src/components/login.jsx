@@ -9,7 +9,8 @@ class Login extends Component{
         super(props);
         this.state = {
             username : '',
-            password : ''
+            password : '',
+            isChecked : false
         }
     }
 
@@ -20,9 +21,15 @@ class Login extends Component{
         })
     }
 
+    onChangeCheckbox = (event) => {
+        this.setState({
+            isChecked: event.target.checked
+        })
+    }
+
     handleSubmit = (event) => {
         event.preventDefault();
-        const { username, password } = this.state;
+        const { username, password, isChecked } = this.state;
 
         const payload = {
             username: username,
@@ -30,6 +37,12 @@ class Login extends Component{
         }
 
         console.log('payload is->', payload)
+
+        if(isChecked && username!== "" && password!== ""){
+            localStorage.setItem('checkbox', isChecked)
+            localStorage.setItem('username_withRememberMe', username) 
+            localStorage.setItem('password_withRememberMe', password)
+        }
 
         axios.post('http://localhost:8000/login', payload)
             .then(res => {
@@ -82,6 +95,16 @@ class Login extends Component{
        this.props.history.push('/signup')
     }
 
+    componentDidMount(){
+        if( (localStorage.getItem('checkbox') && localStorage.getItem('username') !== "" && localStorage.getItem('password') !== "") ){
+            this.setState({
+                isChecked: true,
+                username: localStorage.getItem('username_withRememberMe'),
+                password: localStorage.getItem('password_withRememberMe')
+            })
+        }
+    }
+
     render(){
         return(
             <div>
@@ -100,7 +123,7 @@ class Login extends Component{
                     
                         <button type="submit" onClick={this.handleSubmit} >Login</button>
                         <label>
-                            <input type="checkbox" name="remember" /> Remember me
+                            <input type="checkbox" checked={this.state.isChecked} name="isRememberMe" onChange={this.onChangeCheckbox} /> Remember me
                         </label>
 
                     </div>

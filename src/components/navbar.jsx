@@ -34,7 +34,11 @@ class Navbar extends Component{
     }
 
     handleLogout = () => {
-        localStorage.clear()
+        localStorage.removeItem('token')
+        localStorage.removeItem('role')
+        localStorage.removeItem('avatar')
+        localStorage.removeItem('username')
+
         this.setState({
             token : '',
             username : '',
