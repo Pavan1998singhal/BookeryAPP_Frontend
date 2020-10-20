@@ -80,8 +80,6 @@ class Users extends Component{
         
     }
 
-
-
     userList = () => {
         return this.state.users.map(currentUser => {
             return <User user={currentUser} deleteUser={this.deleteUser} key={currentUser._id}/>

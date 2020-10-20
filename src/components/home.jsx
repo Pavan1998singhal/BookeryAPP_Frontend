@@ -5,6 +5,15 @@ class Home extends Component{
         return(
             <div>
                 <p>Hello Home</p>
+                <div className="card" >
+                    <div className="card-body">Basic card</div>
+                    <div className="card-body">Basic card</div>
+                    <div className="card-body">Basic card</div>
+                    <div className="card-body">Basic card</div>
+                    <div className="card-body">Basic card</div>
+                    <div className="card-body">Basic card</div>
+                    <div className="card-body">Basic card</div>
+                </div>
             </div>
         )
     }
